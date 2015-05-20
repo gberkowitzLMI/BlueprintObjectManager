@@ -1,6 +1,5 @@
 var mqtt = require('mqtt');
 var config = require('./config.js')
-var buzzer = require('./api/buzzer.js')
 
 var host = config.mqtt.host;
 var port = config.mqtt.port;
@@ -32,7 +31,6 @@ exports.connectMQTT = function(req, res) {
 
    client.on('message', function(topic, buzzerId) {
       console.log('Topic: ' + topic + ' Message: ' + buzzerId);
-      buzzer.handleBuzzer(buzzerId);
    });
 
 }
