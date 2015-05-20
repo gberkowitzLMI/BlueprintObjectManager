@@ -1,0 +1,9 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    "public",
+    "node_modules"
+  ],
+  "verbose": true,
+  "ext": "js"
+}
