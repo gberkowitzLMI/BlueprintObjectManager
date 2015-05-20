@@ -14,6 +14,7 @@ var auth = require('./auth.js');
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 server.listen(app.get('port'));
+app.use(passport.initialize());
 
 var mongooseURI = process.env.MONGOLAB_URI || 'mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.database
 mongoose.connect(mongooseURI);
@@ -35,12 +36,11 @@ app.post('/register', function(req,res){
 });
 
 //add api routes first
-
 app.post('/login', passport.authenticate('local', {session: false}), function(req,res) {
     res.send(req.user.token);
 });
 
 //all other routes should default to angular router
-app.get('/', function (req, res) {
+app.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
   res.sendFile(__dirname + '/public/app/index.html');
 });
