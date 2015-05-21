@@ -4,7 +4,8 @@ var uuid = require('uuid');
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    token: String
+    token: String,
+    roles: [String]
 });
 
 var User = mongoose.model('User',userSchema);

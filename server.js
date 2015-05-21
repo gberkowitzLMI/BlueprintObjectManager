@@ -22,8 +22,10 @@ mqttClient.connectMQTT();
 
 app.use(express.static(__dirname + '/public'));
 
-//TODO:Throw 404 when trying to access assets or api routes
-//app.route('/:url(api|auth|components|app|bower_components|assets)/*')
+//Throw 404 when trying to access assets or api routes
+app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(req,res){
+    res.sendStatus(404);
+});
 
 app.post('/register', function(req,res){
     User.registerUser(req.body.username,req.body.password, function(err,success){
@@ -36,11 +38,11 @@ app.post('/register', function(req,res){
 });
 
 //add api routes first
-app.post('/login', passport.authenticate('local', {session: false}), function(req,res) {
-    res.send(req.user.token);
+app.post('/api/login', passport.authenticate('local', {session: false}), function(req,res) {
+    res.send(req.user);
 });
 
 //all other routes should default to angular router
-app.get('/', passport.authenticate('bearer', {session: false}), function (req, res) {
+app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/app/index.html');
 });

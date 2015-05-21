@@ -20,11 +20,8 @@ exports.pressBuzzer = function(buzzerId){
 }
 
 exports.connectMQTT = function(req, res) {
-   console.log("Connecting to Broker");
    client.on('connect', function() {
-      console.log("Connected");
       client.subscribe(topicPrefix);
-
       }, function(err) {
          console.log(err);
    });
