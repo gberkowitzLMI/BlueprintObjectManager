@@ -38,7 +38,7 @@ app.post('/register', function(req,res){
 });
 
 //add api routes first
-app.post('/api/login', passport.authenticate('local', {session: false}), function(req,res) {
+app.post('/login', passport.authenticate('local', {session: false}), function(req,res) {
     res.send(req.user);
 });
 

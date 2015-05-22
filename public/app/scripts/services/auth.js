@@ -3,7 +3,7 @@ angular.module('DEMO_MODULE').factory('Auth', function($http, $q){
         doLogin: function(username,password){
             var deferred = $q.defer();
 
-            $http.post('/api/login',{'username':username,'password':password})
+            $http.post('/login',{'username':username,'password':password})
                 .success(function(d){
                     deferred.resolve(d);
                 })
