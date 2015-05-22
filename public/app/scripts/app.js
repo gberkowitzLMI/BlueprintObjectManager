@@ -15,10 +15,11 @@ angular
   ])
   .run(function($rootScope, $location, Auth){
     $rootScope.$on('$routeChangeStart', function(e){
-      if($location.$$url != '/' && !Auth.isLoggedIn()){
+      if($location.$$url != '/login' && !Auth.isLoggedIn()){
         console.log("Not logged in");
         e.preventDefault();
-        $location.path('/');
+        $location.path('/login');
+        $location.replace();
       }
     });
   })
