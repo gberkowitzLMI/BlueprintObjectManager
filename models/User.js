@@ -13,18 +13,19 @@ var User = mongoose.model('User',userSchema);
 
 module.exports.User = User;
 
-module.exports.registerUser = function(username, password, done){
-    if(!username || !password)
-        done(null,false);
+module.exports.registerUser = function(model, done){
+    if(!model.username || !model.password)
+        done("Must specify username and password",false);
     else{
-        User.findOne({username:username}, function(err, user){
+        User.findOne({username:model.username}, function(err, user){
             if(err) done(err,null);
 
-            if(user) done(err, false);
+            if(user) done("User exists", false);
 
             //Since we're more concerned with user identification rather than acutal security, we do not expire tokens
-            new User({username:username, password:password, token: uuid.v4()}).save();
-            done(null, true);
+            var user = new User({username:model.username, password:model.password, name:model.name, token: uuid.v4()});
+            user.save();
+            done(null, user);
         });
     }
 

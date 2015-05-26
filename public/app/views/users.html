@@ -1,11 +1,21 @@
 <div nav menu-items="menuItems"></div>
 <div class="left-panel">
-    <ul ng-repeat="user in users">
-        <li>{{user.name}}</li>
-    </ul>
+    <div ng-repeat="user in users">
+        <div class="list-item" ng-click="showDetails(user._id)">{{user.name}}</div>
+    </div>
+    <div ng-show="!editing" class="list-item" ng-click="newUser()">Add User</div>
 </div>
 <div class="right-panel">
-    <form>
-        <label>Name</label><input type="text" value="{{currentUser.name}}"></input>
+    <form ng-submit="createUser()">
+        <label>Name</label><input type="text" ng-model="currentUser.name"></input>
+    </br>
+        <label>Username</label><input type="text" ng-model="currentUser.username"></input>
+    </br>
+    <div ng-show="editing">
+        <label>Password</label><input type="password" ng-model="currentUser.password"></input>
+        </br>
+        <input type="submit" value="Create User"></input>
+        <input type="button" ng-click="cancel()" value="Cancel"></input>
+    </div>
     </form>
 </div>

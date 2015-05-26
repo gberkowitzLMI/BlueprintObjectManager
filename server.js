@@ -28,11 +28,14 @@ app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(r
 });
 
 app.post('/api/users', function(req,res){
-    User.registerUser(req.body.username,req.body.password, function(err,success){
-        if(err || !success)
-            res.sendStatus(400);
+    User.registerUser(req.body, function(err,user){
+        if(err || !user){
+            res.status(400);
+            res.send(err);
+        }
         else{
-            res.sendStatus(200);
+            res.status(200);
+            res.send(user);
         }
     });
 });
