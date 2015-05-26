@@ -11,7 +11,8 @@
 angular
   .module('DEMO_MODULE', [
     'ngRoute',
-    'ngTouch'
+    'ngTouch',
+    'ngResource'
   ])
   .run(function($rootScope, $location, Auth){
     $rootScope.$on('$routeChangeStart', function(e){
@@ -32,6 +33,10 @@ angular
       .when('/login', {
         templateUrl: '/app/views/login.html',
         controller: 'Login'
+      })
+      .when('/users', {
+        templateUrl: '/app/views/users.html',
+        controller: 'User'
       })
       .otherwise({
         redirectTo: '/'

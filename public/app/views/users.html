@@ -1,0 +1,11 @@
+<div nav menu-items="menuItems"></div>
+<div class="left-panel">
+    <ul ng-repeat="user in users">
+        <li>{{user.name}}</li>
+    </ul>
+</div>
+<div class="right-panel">
+    <form>
+        <label>Name</label><input type="text" value="{{currentUser.name}}"></input>
+    </form>
+</div>

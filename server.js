@@ -27,13 +27,19 @@ app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(r
     res.sendStatus(404);
 });
 
-app.post('/register', function(req,res){
+app.post('/api/users', function(req,res){
     User.registerUser(req.body.username,req.body.password, function(err,success){
         if(err || !success)
             res.sendStatus(400);
         else{
             res.sendStatus(200);
         }
+    });
+});
+
+app.get('/api/users', function(req,res){
+    User.getUsers(function(err, users){
+        res.send(users);
     });
 });
 

@@ -1,4 +1,6 @@
-<div ng-repeat="mi in menuItems">
-    <a class="menu-item" href="#{{mi.location}}">{{mi.title}}</a>
+<div id="nav-menu">
+    <div ng-repeat="mi in menuItems">
+        <a class="menu-item" href="#{{mi.location}}">{{mi.title}}</a>
+    </div>
+    <button ng-click="logOut()">Log Out</button>
 </div>
-<button ng-click="logOut()">Log Out</button>

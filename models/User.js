@@ -4,6 +4,7 @@ var uuid = require('uuid');
 var userSchema = new mongoose.Schema({
     username: String,
     password: String,
+    name:String,
     token: String,
     roles: [String]
 });
@@ -27,4 +28,10 @@ module.exports.registerUser = function(username, password, done){
         });
     }
 
+}
+
+module.exports.getUsers = function(done){
+    User.find({}, function(err,user){
+        done(null,user);
+    });
 }
