@@ -27,8 +27,12 @@ angular.module('DEMO_MODULE').controller('User', function($scope, User){
     }
 
     $scope.createUser = function(){
-        $scope.currentUser.$save()
-        $scope.editing = false;
+        if(!$scope.currentUser.username || !$scope.currentUser.password)
+            alert("Please provide username and password");
+        else{
+            $scope.currentUser.$save()
+            $scope.editing = false;    
+        }
     }
 
     $scope.cancel = function(){
