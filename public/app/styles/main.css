@@ -16,7 +16,6 @@
     position: relative;
     margin-left: 150px;
     width: 300px;
-    background-color: #FFFFCC;
     float: left;
 }
 
@@ -24,7 +23,12 @@
     border-width: .2px;
     padding-top: 10px;
     border-bottom: thin solid;
+    background-color: #FFFFCC;
     min-height: 18px;
+}
+
+.left-panel .list-item.selected {
+    background-color: #E5E5B7
 }
 
 .right-panel {

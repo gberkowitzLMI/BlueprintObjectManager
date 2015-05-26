@@ -12,9 +12,11 @@ angular.module('DEMO_MODULE').controller('User', function($scope, User){
     });
 
     $scope.showDetails = function(userID){
-        for(var u in $scope.users){
-            if($scope.users[u]._id == userID)
-                $scope.currentUser = $scope.users[u];
+        if(!$scope.editing){
+            for(var u in $scope.users){
+                if($scope.users[u]._id == userID)
+                    $scope.currentUser = $scope.users[u];
+            }
         }
     }
 
@@ -25,9 +27,7 @@ angular.module('DEMO_MODULE').controller('User', function($scope, User){
     }
 
     $scope.createUser = function(){
-        $scope.currentUser.$save(function(a,b){
-            debugger;
-        });
+        $scope.currentUser.$save()
         $scope.editing = false;
     }
 
@@ -36,4 +36,5 @@ angular.module('DEMO_MODULE').controller('User', function($scope, User){
         $scope.currentUser = $scope.users[0];
         $scope.users.splice($scope.users.length-1, 1);
     }
+
 });

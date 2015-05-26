@@ -2,7 +2,8 @@
   "restartable": "rs",
   "ignore": [
     "public",
-    "node_modules"
+    "node_modules",
+    ".git"
   ],
   "verbose": true,
   "ext": "js"
