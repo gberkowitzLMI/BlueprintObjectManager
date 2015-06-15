@@ -11,7 +11,6 @@
 angular
   .module('DEMO_MODULE', [
     'ngRoute',
-    'ngTouch',
     'ngResource'
   ])
   .run(function($rootScope, $location, Auth){

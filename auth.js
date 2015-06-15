@@ -1,43 +1,25 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var BearerStrategy = require('passport-http-bearer').Strategy;
-var User = require('./models/User.js').User;
+var request = require('request');
 
-var isValidPassword = function(user,pass){
-  //TODO: Hash password
-  return user.password == pass;
-}
+var sessions = [];
 
 passport.use(new LocalStrategy(
-  function(username, password, done) { 
-    User.findOne({ 'username' :  username }, 
-      function(err, user) {
-        if (err) return done(err);
-
-        if (!user){
-          console.log('User Not Found with username '+username);
-          return done(null, false);        
-        }
-
-        if (!isValidPassword(user, password)){
-          console.log('Invalid Password');
-          return done(null, false);
-        }
-
-        return done(null, user);
+  function(auth, done) { 
+    var options = {
+      url: "https://blueprint.xively.com:443/api/manage/accounts",
+      headers:{
+        Authorization: auth
       }
-    );
-}));
+    };
 
-passport.use(new BearerStrategy(
-  function(token, done) { 
-    User.findOne({ 'token' :  token }, 
-      function(err, user) {
-        if (err) return done(err);
-
-        if (!user) return done(null, false)
-
-        return done(null, user);
+    request.get(options,function(res){
+      //if auth tokens are associated with more than one account, this needs to be changed to reflect that
+      if(res.accounts && res.accounts.results.length > 0){
+        done(null,true);
+      } else {
+        done(null,false);
       }
-    );
+    });
+
 }));

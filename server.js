@@ -8,8 +8,10 @@ var mongoose = require('mongoose');
 var io = require('socket.io')(server);
 var config = require('./config.js');
 var mqttClient = require('./mqtt.js');
-var User = require('./models/User.js');
 var auth = require('./auth.js');
+var blueprint = require('./api/blueprint');
+
+var manage = null;
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
@@ -22,34 +24,19 @@ mqttClient.connectMQTT();
 
 app.use(express.static(__dirname + '/public'));
 
+
 //Throw 404 when trying to access assets or api routes
 app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(req,res){
     res.sendStatus(404);
 });
 
-app.post('/api/users', function(req,res){
-    User.registerUser(req.body, function(err,user){
-        if(err || !user){
-            res.status(400);
-            res.send(err);
-        }
-        else{
-            res.status(200);
-            res.send(user);
-        }
-    });
-});
-
-app.get('/api/users', function(req,res){
-    User.getUsers(function(err, users){
-        res.send(users);
-    });
-});
 
 //add api routes first
-app.post('/login', passport.authenticate('local', {session: false}), function(req,res) {
-    res.send(req.user);
+app.post('/login', passport.authenticate('local', {session: true}), function(req,res) {
+    res.send(200);
 });
+
+app.use('/blueprint', blueprint);
 
 //all other routes should default to angular router
 app.get('/', function (req, res) {

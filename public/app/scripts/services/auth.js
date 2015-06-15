@@ -1,9 +1,9 @@
 angular.module('DEMO_MODULE').factory('Auth', function($http, $q){
     return {
-        doLogin: function(username,password){
+        doLogin: function(auth,acct){
             var deferred = $q.defer();
 
-            $http.post('/login',{'username':username,'password':password})
+            $http.post('/login',{'authorization':auth,'accountId':acct})
                 .success(function(d){
                     deferred.resolve(d);
                 })
@@ -15,7 +15,7 @@ angular.module('DEMO_MODULE').factory('Auth', function($http, $q){
         },
 
         isLoggedIn: function(){
-            return window.localStorage["auth_token"];
+            return window.localStorage["authorization"] && window.localStorage["accountId"];
         }
     }
 });

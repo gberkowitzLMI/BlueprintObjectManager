@@ -15,19 +15,10 @@ var client = mqtt.connect({
    password: password
 });
 
-exports.pressBuzzer = function(buzzerId){
-  client.publish(topicPrefix, buzzerId.toString());
-}
-
 exports.connectMQTT = function(req, res) {
    client.on('connect', function() {
       client.subscribe(topicPrefix);
       }, function(err) {
          console.log(err);
    });
-
-   client.on('message', function(topic, buzzerId) {
-      console.log('Topic: ' + topic + ' Message: ' + buzzerId);
-   });
-
 }

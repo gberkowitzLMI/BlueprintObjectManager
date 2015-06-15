@@ -13,5 +13,8 @@
     "angular-mocks": "^1.3.0"
   },
   "appPath": "public/app",
-  "moduleName": "DEMO"
+  "moduleName": "DEMO",
+  "resolutions": {
+    "angular": "^1.3.0"
+  }
 }
