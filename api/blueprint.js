@@ -6,7 +6,9 @@ var manage = null;
 var requireAuthorization = function(req,res,next){
     if(!manage){
         manage = request.defaults({
-            headers:req.headers['authorization'],
+            headers:{
+                Authorization: req.headers['authorization']
+            },
             baseUrl: "https://blueprint.xively.com:443/api/manage/"
         });
     }
@@ -15,9 +17,14 @@ var requireAuthorization = function(req,res,next){
 
 router.all('*',requireAuthorization);
 
-router.get('/organizations', function(req,res){
-    manage.get('organizations', {qs: req.params.accountId});
-    res.send(200);
-});
+router.route('/organizations')
+    .get(function(req,res){
+        manage.get('organizations', {qs: {"accountId": req.query.accountId}}, function(err,data){
+            console.log(err);
+            console.log(data);
+        });
+        res.send(200);
+    })
+
 
 module.exports = router;
