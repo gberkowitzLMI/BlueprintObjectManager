@@ -1,3 +1,6 @@
 <div>
-    <nav menu-items="menuItems"></nav>
+    <nav menu-items="" id="nav-menu"></nav>
+    <ul class="left-panel" ng-repeat="org in organizations">
+        <li class="list-item">{{org.name}} - {{org.id}}</li>
+    </ul>
 </div>

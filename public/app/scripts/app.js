@@ -13,13 +13,16 @@ angular
     'ngRoute',
     'ngResource'
   ])
-  .run(function($rootScope, $location, Auth){
+  .run(function($rootScope, $location, $http, Auth){
     $rootScope.$on('$routeChangeStart', function(e){
       if($location.$$url != '/login' && !Auth.isLoggedIn()){
         console.log("Not logged in");
         e.preventDefault();
         $location.path('/login');
         $location.replace();
+      } else {
+        $http.defaults.headers.common.Authorization = window.localStorage["authorization"];
+        $http.defaults.headers.common.AccountId = window.localStorage["accountId"]
       }
     });
   })

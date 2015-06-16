@@ -5,6 +5,12 @@ var manage = null;
 
 var requireAuthorization = function(req,res,next){
     if(!manage){
+        if(!req.headers['authorization'])
+        {
+            console.log(req.headers);
+            res.sendStatus(401);
+            return;
+        }
         manage = request.defaults({
             headers:{
                 Authorization: req.headers['authorization']
@@ -23,7 +29,7 @@ router.all('*',requireAuthorization);
 router.route('/organizations')
     .get(function(req,res){
         manage.get('organizations', {qs: {"accountId": req.headers['accountid']}}, function(err,data){
-            res.send(data.body);
+            res.send(JSON.parse(data.body).organizations.results);
         });
     })
     .post(function(req,res){
