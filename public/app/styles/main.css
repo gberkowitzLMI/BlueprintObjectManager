@@ -1,8 +1,8 @@
 #nav-menu {
     position: absolute;
-    left: 0;
+    left: -150px;
     width: 150px;
-    height: 100%;
+    height: 90%;
     background-color: green;
 }
 
@@ -12,14 +12,14 @@
     margin: 8px
 }
 
-.left-panel {
+.content {
     position: relative;
     margin-left: 150px;
-    width: 300px;
     float: left;
 }
 
-.left-panel .list-item {
+.list-item {
+    width: 300px;
     border-width: .2px;
     padding-top: 10px;
     border-bottom: thin solid;
@@ -27,7 +27,7 @@
     min-height: 18px;
 }
 
-.left-panel .list-item.selected {
+.list-item.selected {
     background-color: #E5E5B7
 }
 
