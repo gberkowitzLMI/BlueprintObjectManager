@@ -1,9 +1,9 @@
 angular.module('DEMO_MODULE').factory('Auth', function($http, $q){
     return {
-        doLogin: function(auth,acct){
+        doLogin: function(auth){
             var deferred = $q.defer();
-
-            $http.post('/login',{'authorization':auth,'accountId':acct})
+            console.log(auth);
+            $http.post('/api/login',{"auth":auth})
                 .success(function(d){
                     deferred.resolve(d);
                 })

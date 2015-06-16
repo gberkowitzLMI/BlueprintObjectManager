@@ -6,6 +6,7 @@ var passport = require('passport');
 var TokenStrategy = require('passport-token-auth')
 var mongoose = require('mongoose');
 var io = require('socket.io')(server);
+var request = require('request');
 var config = require('./config.js');
 var mqttClient = require('./mqtt.js');
 var auth = require('./auth.js');
@@ -32,8 +33,8 @@ app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(r
 
 
 //add api routes first
-app.post('/login', passport.authenticate('local', {session: true}), function(req,res) {
-    res.send(200);
+app.post('/api/login', auth.doLogin, function(req,res) {
+    res.end();
 });
 
 app.use('/blueprint', blueprint);

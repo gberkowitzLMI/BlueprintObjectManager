@@ -77,7 +77,7 @@ router.route('/channel-templates')
 //DEVICES
 router.route('/devices')
     .get(function(req,res){
-        //TODO add deviceType param
+        //TODO add deviceType and org params
         manage.get('devices',{qs: {"accountId": req.headers['accountid']}}, function(err,data){
             res.send(data.body);
         })

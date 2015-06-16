@@ -1,26 +1,22 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
 
-var sessions = [];
-
-passport.use(new LocalStrategy(
-  function(auth, done) { 
-    var options = {
+module.exports.doLogin = function(req,res,next){
+  var options = {
       url: "https://blueprint.xively.com:443/api/manage/accounts",
       headers:{
-        Authorization: auth
+        Authorization: req.body.auth
       }
     };
 
-    request.get(options,function(res){
+    request.get(options,function(err,re){
+      var response = JSON.parse(re.body)
       //I'm assuming here that the user has the correct accountId
       //if auth tokens are associated with more than one account, this needs to be changed to reflect that
-      if(res.accounts && res.accounts.results.length > 0){
-        done(null,true);
+      if(response.accounts && response.accounts.results.length > 0){
+        res.status(200);
       } else {
-        done(null,false);
+        res.status(401);
       }
+      next();
     });
-
-}));
+}

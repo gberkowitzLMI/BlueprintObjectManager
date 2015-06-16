@@ -33,10 +33,6 @@ angular
         templateUrl: '/app/views/login.html',
         controller: 'Login'
       })
-      .when('/users', {
-        templateUrl: '/app/views/users.html',
-        controller: 'User'
-      })
       .otherwise({
         redirectTo: '/'
       });
