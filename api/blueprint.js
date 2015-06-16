@@ -34,7 +34,7 @@ router.route('/organizations')
         manage.post({url: 'organizations', body: body, json:true}, function(err,data){
             res.send(data);
         });
-    })
+    });
 
 //DEVICE TYPES
 router.route('/device-types')
@@ -51,7 +51,7 @@ router.route('/device-types')
         manage.post({url: 'device-types', body: body, json:true}, function(err,data){
             res.send(data);
         });
-    })
+    });
 
 //CHANNEL TEMPLATES
 router.route('/channel-templates')
@@ -68,14 +68,31 @@ router.route('/channel-templates')
           "accountId": req.headers['accountid'],
           "name": req.body['name'],
           "persistenceType": "simple" //TODO add timeSeries
-        }
+        };
         manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
             res.send(data);
         });
-    })
+    });
 
 //DEVICES
-
+router.route('/devices')
+    .get(function(req,res){
+        //TODO add deviceType param
+        manage.get('devices',{qs: {"accountId": req.headers['accountid']}}, function(err,data){
+            res.send(data.body);
+        })
+    })
+    .post(function(req,res){
+        var body = {
+          "accountId": req.headers.accountid,
+          "deviceTypeId": req.param,
+          "organizationId": req.body.organizationId,
+          "serialNumber": req.body.serialNumber || ""
+        };
+        manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
+            res.send(data);
+        });
+    });
 
 
 module.exports = router;

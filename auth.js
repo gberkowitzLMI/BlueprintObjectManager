@@ -14,6 +14,7 @@ passport.use(new LocalStrategy(
     };
 
     request.get(options,function(res){
+      //I'm assuming here that the user has the correct accountId
       //if auth tokens are associated with more than one account, this needs to be changed to reflect that
       if(res.accounts && res.accounts.results.length > 0){
         done(null,true);
