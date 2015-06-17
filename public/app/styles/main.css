@@ -3,6 +3,7 @@
     left: -150px;
     width: 150px;
     height: 100%;
+    /*min-height: 700px;*/
     background-color: green;
 }
 

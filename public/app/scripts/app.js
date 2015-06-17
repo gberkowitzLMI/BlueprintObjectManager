@@ -28,15 +28,20 @@ angular
   })
   .config(function ($routeProvider) {
     $routeProvider 
-      .when('/', {
+      .when('/orgs', {
         templateUrl: '/app/views/orgs.html',
         controller: 'Orgs'
+      })
+      .when('/devicetypes', {
+        templateUrl: '/app/views/deviceTypes.html',
+        controller: 'DeviceTypes'
       })
       .when('/login', {
         templateUrl: '/app/views/login.html',
         controller: 'Login'
       })
+
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/orgs'
       });
   });

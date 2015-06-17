@@ -1,0 +1,8 @@
+<nav menu-items="menuItems"></nav>
+<div>
+    <h2>Device Types</h2>
+    <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
+    <ul ng-repeat="dt in deviceTypes">
+        <li class="list-item">{{dt.name}} - {{dt.id}}</li>
+    </ul>
+</div>
