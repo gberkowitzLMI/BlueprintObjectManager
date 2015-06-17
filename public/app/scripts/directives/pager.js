@@ -12,10 +12,8 @@ angular.module('DEMO_MODULE').directive('pager', function(){
             }   
         }
 
-        scope.pageJump = function(){
-            if(scope.page && scope.page >= 1 && scope.page <= Math.ceil(scope.count / scope.pageSize)){
-                scope.changePage(scope.page,scope.pageSize);
-            } else {
+        scope.pageJump = function() {
+            if(!(scope.page && scope.page >= 1 && scope.page <= Math.ceil(scope.count / scope.pageSize))) {
                 if(!scope.page || scope.page < 1){
                     scope.page = 1;
                 }
@@ -23,8 +21,9 @@ angular.module('DEMO_MODULE').directive('pager', function(){
                     scope.page = Math.ceil(scope.count / scope.pageSize);
                 }
             }
-        }
-    };
+            scope.changePage(scope.page,scope.pageSize);
+        };
+    }
 
     return {
         scope: {
