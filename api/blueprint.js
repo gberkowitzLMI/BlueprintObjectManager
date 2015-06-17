@@ -21,15 +21,28 @@ var requireAuthorization = function(req,res,next){
     next();
 }
 
+var queryStringParams = function(req,res,next){
+    req.bpQs = {
+        qs: {
+            accountId: req.headers['accountid'],
+            page: req.query.page || 1,
+            pageSize: req.query.pageSize || 10,
+            sortBy: req.query.sortBy,
+            sortOrder: req.query.sortOrder || "asc"
+        }
+    };
+    next();
+}
+
 router.all('*',requireAuthorization);
 
-//TODO: router.get('*', pagingParams);
+router.get('*', queryStringParams);
 
 //ORGANIZATIONS
 router.route('/organizations')
     .get(function(req,res){
-        manage.get('organizations', {qs: {"accountId": req.headers['accountid']}}, function(err,data){
-            res.send(JSON.parse(data.body).organizations.results);
+        manage.get('organizations', req.bpQs, function(err,data){
+            res.send(JSON.parse(data.body));
         });
     })
     .post(function(req,res){
@@ -38,15 +51,15 @@ router.route('/organizations')
             "name": req.body['name']
         };
         manage.post({url: 'organizations', body: body, json:true}, function(err,data){
-            res.send(data);
+            res.send(JSON.parse(data.body));
         });
     });
 
 //DEVICE TYPES
 router.route('/device-types')
     .get(function(req,res){
-        manage.get('device-types',{qs: {"accountId": req.headers['accountid']}}, function(err,data){
-            res.send(data.body);
+        manage.get('device-types',req.bpQs, function(err,data){
+            res.send(JSON.parse(data.body));
         })
     })
     .post(function(req,res){
@@ -55,7 +68,7 @@ router.route('/device-types')
             "name": req.body['name']
         };
         manage.post({url: 'device-types', body: body, json:true}, function(err,data){
-            res.send(data);
+            res.send(JSON.parse(data.body));
         });
     });
 
@@ -63,8 +76,8 @@ router.route('/device-types')
 router.route('/channel-templates')
     .get(function(req,res){
         //TODO add deviceType param
-        manage.get('channel-templates',{qs: {"accountId": req.headers['accountid']}}, function(err,data){
-            res.send(data.body);
+        manage.get('channel-templates',req.bpQs, function(err,data){
+            res.send(JSON.parse(data.body));
         })
     })
     .post(function(req,res){
@@ -76,7 +89,7 @@ router.route('/channel-templates')
           "persistenceType": "simple" //TODO add timeSeries
         };
         manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
-            res.send(data);
+            res.send(JSON.parse(data.body));
         });
     });
 
@@ -84,7 +97,7 @@ router.route('/channel-templates')
 router.route('/devices')
     .get(function(req,res){
         //TODO add deviceType and org params
-        manage.get('devices',{qs: {"accountId": req.headers['accountid']}}, function(err,data){
+        manage.get('devices',req.bpQs, function(err,data){
             res.send(data.body);
         })
     })
@@ -96,7 +109,7 @@ router.route('/devices')
           "serialNumber": req.body.serialNumber || ""
         };
         manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
-            res.send(data);
+            res.send(JSON.parse(data.body));
         });
     });
 
