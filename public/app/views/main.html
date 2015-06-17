@@ -1,8 +1,8 @@
 <nav menu-items=""></nav>
 <div>
     <h2>Organizations</h2>
+    <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
     <ul ng-repeat="org in organizations">
         <li class="list-item">{{org.name}} - {{org.id}}</li>
     </ul>
-    <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
 </div>
