@@ -1,8 +1,14 @@
 <nav menu-items="menuItems"></nav>
-<div>
-    <h2>Organizations</h2>
+<h2>Organizations</h2>
+<div ng-hide="addNew">
+    <div><button ng-click="addNew = true">Add New Organization</button></div></br>
     <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
     <ul ng-repeat="org in organizations">
         <li class="list-item">{{org.name}} - {{org.id}}</li>
     </ul>
+</div>
+<div ng-hide="!addNew">
+    <label>Name: </label><input type="text" ng-model="newOrg.name"></input>
+        <button ng-click="createOrg()">Create New Org</button>
+        <button ng-click="addNew = false; newOrg.name='';">Cancel</button>
 </div>
