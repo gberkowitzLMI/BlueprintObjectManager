@@ -75,7 +75,7 @@ router.route('/device-types')
 //CHANNEL TEMPLATES
 router.route('/channel-templates')
     .get(function(req,res){
-        //TODO add deviceType param
+        req.bpQs.deviceType = req.query['deviceType'];
         manage.get('channel-templates',req.bpQs, function(err,data){
             res.send(JSON.parse(data.body));
         })

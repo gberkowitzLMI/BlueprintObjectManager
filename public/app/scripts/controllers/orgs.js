@@ -22,6 +22,15 @@ angular.module('DEMO_MODULE').controller('Orgs', function($scope, Organization){
     }
 
     $scope.refresh = loadOrgs;
+
+    $scope.createOrg = function(){
+        if($scope.newOrg && !$scope.newOrg.name =='')
+            Organization.save({name:$scope.newOrg.name}, function(data){
+                $scope.organizations.push(data.organization);
+                $scope.addNew = false;
+                $scope.newOrg = {};
+            });
+    }
     
     loadOrgs(1,10);
 });
