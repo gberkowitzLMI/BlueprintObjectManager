@@ -3,11 +3,11 @@ var request = require('request');
 
 var manage = null;
 
+//TODO: separate per user session or remove header from defaults and just add on each incoming request
 var requireAuthorization = function(req,res,next){
     if(!manage){
         if(!req.headers['authorization'])
         {
-            console.log(req.headers);
             res.sendStatus(401);
             return;
         }
@@ -42,7 +42,7 @@ router.get('*', queryStringParams);
 router.route('/organizations')
     .get(function(req,res){
         manage.get('organizations', req.bpQs, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         });
     })
     .post(function(req,res){
@@ -51,7 +51,7 @@ router.route('/organizations')
             "name": req.body['name']
         };
         manage.post({url: 'organizations', body: body, json:true}, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         });
     });
 
@@ -59,7 +59,7 @@ router.route('/organizations')
 router.route('/device-types')
     .get(function(req,res){
         manage.get('device-types',req.bpQs, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         })
     })
     .post(function(req,res){
@@ -68,7 +68,7 @@ router.route('/device-types')
             "name": req.body['name']
         };
         manage.post({url: 'device-types', body: body, json:true}, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         });
     });
 
@@ -77,7 +77,7 @@ router.route('/channel-templates')
     .get(function(req,res){
         req.bpQs.deviceType = req.query['deviceType'];
         manage.get('channel-templates',req.bpQs, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         })
     })
     .post(function(req,res){
@@ -89,7 +89,7 @@ router.route('/channel-templates')
           "persistenceType": "simple" //TODO add timeSeries
         };
         manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         });
     });
 
@@ -109,7 +109,7 @@ router.route('/devices')
           "serialNumber": req.body.serialNumber || ""
         };
         manage.post({url: 'channel-templates', body: body, json:true}, function(err,data){
-            res.send(JSON.parse(data.body));
+            res.send(data.body);
         });
     });
 
