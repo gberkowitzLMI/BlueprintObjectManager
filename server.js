@@ -2,22 +2,21 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var bodyParser = require('body-parser');
-var passport = require('passport');
-var TokenStrategy = require('passport-token-auth')
+// var passport = require('passport');
+// var TokenStrategy = require('passport-token-auth')
 var mongoose = require('mongoose');
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 var request = require('request');
 var config = require('./config.js');
 var mqttClient = require('./mqtt.js');
 var auth = require('./auth.js');
 var blueprint = require('./api/blueprint');
-
-var manage = null;
+var User = require('./models/User');
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 server.listen(app.get('port'));
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 var mongooseURI = process.env.MONGOLAB_URI || 'mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.database
 mongoose.connect(mongooseURI);
@@ -35,6 +34,19 @@ app.route('/:url(api|auth|components|app|bower_components|assets)/*', function(r
 //add api routes first
 app.post('/api/login', auth.doLogin, function(req,res) {
     res.end();
+});
+
+app.post('api/register', function(req,res) {
+    User.registerUser(req.body, function(err,user){
+        if(err || !user){
+            res.status(400);
+            res.send(err);
+        }
+        else{
+            res.status(200);
+            res.send(user);
+        }
+    });
 });
 
 app.use('/blueprint', blueprint);

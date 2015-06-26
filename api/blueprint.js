@@ -2,6 +2,7 @@ var router = require('express').Router();
 var request = require('request');
 var _ = require('underscore');
 var manage = request.defaults({baseUrl: "https://blueprint.xively.com:443/api/manage/"});
+var BlueprintBL = require('../Blueprint');
 
 var requireAuthorization = function(req,res,next){
     if(!req.headers['authorization'])
@@ -38,13 +39,13 @@ router.route('/organizations')
         });
     })
     .post(function(req,res){
-        var body = {
+        req.options.body = {
             "accountId": req.headers['accountid'],
             "name": req.body['name']
         };
-        manage.post(_.extend(req.options, {url: 'organizations', body: body, json:true}), function(err,data){
+        BlueprintBL.organization.create(req.options, function(err,data){
             res.send(data.body);
-        });
+        })
     });
 
 //DEVICE TYPES
