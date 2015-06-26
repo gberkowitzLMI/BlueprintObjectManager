@@ -40,7 +40,10 @@ angular
         templateUrl: '/app/views/login.html',
         controller: 'Login'
       })
-
+      .when('/register', {
+        templateUrl:'/app/views/registration.html',
+        controller: 'User'
+      })
       .otherwise({
         redirectTo: '/orgs'
       });

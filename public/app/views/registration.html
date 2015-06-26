@@ -1,0 +1,13 @@
+<div>
+    <h2>Create an account</h2>
+<form ng-submit="createUser()" >
+        <label>Name</label><input ng-disabled="!editing" type="text" ng-model="currentUser.name"></input>
+    </br>
+        <label>Username</label><input ng-disabled="!editing" type="text" ng-model="currentUser.username"></input>
+    </br>
+        <label>Password</label><input type="password" ng-model="currentUser.password"></input>
+        </br>
+        <input type="submit" value="Create User"></input>
+        <input type="button" ng-click="cancel()" value="Cancel"></input>
+    </form>
+</div>
