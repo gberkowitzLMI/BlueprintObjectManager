@@ -1,4 +1,5 @@
 angular.module('DEMO_MODULE').controller('DeviceTypes', function($scope, DeviceType){
+    $scope.selectedDeviceType = null;
     $scope.menuItems = [
         {
             title: 'Organizations',
@@ -18,6 +19,15 @@ angular.module('DEMO_MODULE').controller('DeviceTypes', function($scope, DeviceT
             $scope.deviceTypes = data.deviceTypes.results;
             $scope.paging = data.deviceTypes.meta;
         });
+    }
+
+    $scope.createDeviceType = function(){
+        if($scope.newDeviceType && !$scope.newDeviceType.name =='')
+            DeviceType.save({name:$scope.newDeviceType.name}, function(data){
+                $scope.deviceTypes.push(data.deviceType);
+                $scope.addNew = false; 
+                $scope.newDeviceType = {};
+            });
     }
 
     $scope.refresh = loadDeviceTypes;
