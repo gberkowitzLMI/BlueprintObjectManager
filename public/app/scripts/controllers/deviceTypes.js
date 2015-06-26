@@ -1,5 +1,4 @@
 angular.module('DEMO_MODULE').controller('DeviceTypes', function($scope, DeviceType){
-    $scope.selectedDeviceType = null;
     $scope.menuItems = [
         {
             title: 'Organizations',
@@ -28,6 +27,10 @@ angular.module('DEMO_MODULE').controller('DeviceTypes', function($scope, DeviceT
                 $scope.addNew = false; 
                 $scope.newDeviceType = {};
             });
+    }
+
+    $scope.dtDetails = function(dt){
+        $scope.selectedDeviceType = dt;
     }
 
     $scope.refresh = loadDeviceTypes;

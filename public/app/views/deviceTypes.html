@@ -4,15 +4,11 @@
     <div><button ng-click="addNew = true">Add New Device Type</button></div></br>
     <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
     <div ng-show="!addNew" ng-repeat="dt in deviceTypes">
-        <div class="list-item" ng-click="selectedDeviceType = dt">{{dt.name}} - {{dt.id}}</div>
+        <div class="list-item" ng-click="dtDetails(dt)">{{dt.name}} - {{dt.id}}</div>
     </div>
 </div>
 <div ng-hide="!addNew">
     <label>Name: </label><input type="text" ng-model="newDeviceType.name"></input>
         <button ng-click="createDeviceType()">Create New Device Type</button>
         <button ng-click="addNew = false; newDeviceType.name='';">Cancel</button>
-</div>
-
-<div ng-repeat="ct in selectedDevice.channelTemplates">
-    <div class="list-item">{{ct}}</div>
 </div>
