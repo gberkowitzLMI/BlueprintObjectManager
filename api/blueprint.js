@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var request = require('request');
 var _ = require('underscore');
-var manage = request.defaults({baseUrl: "https://blueprint.xively.com:443/api/manage/"});
+var manage = request.defaults({baseUrl: "https://blueprint.demo.xively.com/api/v1/"});
 var BlueprintBL = require('../Blueprint');
 
 var requireAuthorization = function(req,res,next){
@@ -44,6 +44,9 @@ router.route('/organizations')
             "name": req.body['name']
         };
         BlueprintBL.organization.create(req.options, function(err,data){
+            if(err)
+                throw err;
+
             res.send(data.body);
         })
     });

@@ -14,7 +14,7 @@ var blueprint = require('./api/blueprint');
 var User = require('./models/User');
 
 app.use(bodyParser.json());
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 8000));
 server.listen(app.get('port'));
 // app.use(passport.initialize());
 

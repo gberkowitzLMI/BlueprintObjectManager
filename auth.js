@@ -2,7 +2,7 @@ var request = require('request');
 
 module.exports.doLogin = function(req,res,next){
   var options = {
-      url: "https://blueprint.xively.com:443/api/manage/accounts",
+      url: "https://blueprint.demo.xively.com/api/v1/accounts/",
       headers:{
         Authorization: req.body.auth
       }

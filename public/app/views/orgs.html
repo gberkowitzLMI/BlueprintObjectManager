@@ -4,7 +4,7 @@
     <div><button ng-click="addNew = true">Add New Organization</button></div></br>
     <pager count="paging.count" page="paging.page" page-size= "paging.pageSize" change-page="refresh"></pager>
     <div ng-repeat="org in organizations">
-        <div class="list-item">{{org.name}} - {{org.id}}</div>
+        <div class="list-item">{{org.name}} - {{org.id}} - {{org.version}}</div>
     </div>
 </div>
 <div ng-hide="!addNew">
