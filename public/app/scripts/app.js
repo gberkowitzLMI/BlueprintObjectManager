@@ -32,9 +32,9 @@ angular
         templateUrl: '/app/views/orgs.html',
         controller: 'Orgs'
       })
-      .when('/devicetypes', {
-        templateUrl: '/app/views/deviceTypes.html',
-        controller: 'DeviceTypes'
+      .when('/deviceTemplates', {
+        templateUrl: '/app/views/deviceTemplates.html',
+        controller: 'deviceTemplates'
       })
       .when('/login', {
         templateUrl: '/app/views/login.html',
